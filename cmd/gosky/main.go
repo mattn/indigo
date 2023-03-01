@@ -833,19 +833,20 @@ var readRepoStreamCmd = &cli.Command{
 	Action: func(cctx *cli.Context) error {
 		ctx, cancel := context.WithCancel(context.Background())
 
+		d := websocket.DefaultDialer
+		con, _, err := d.Dial(cctx.Args().First(), http.Header{})
+		if err != nil {
+			return fmt.Errorf("dial failure: %w", err)
+		}
+
 		ch := make(chan os.Signal)
 		signal.Notify(ch, syscall.SIGINT)
 
 		go func() {
 			<-ch
 			cancel()
+			con.Close()
 		}()
-
-		d := websocket.DefaultDialer
-		con, _, err := d.Dial(cctx.Args().First(), http.Header{})
-		if err != nil {
-			return fmt.Errorf("dial failure: %w", err)
-		}
 
 		jsonfmt := cctx.Bool("json")
 
