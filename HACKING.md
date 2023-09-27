@@ -4,7 +4,7 @@
 Commands (run with, eg, `go run ./cmd/bigsky`):
 
 - `cmd/bigsky`: BGS+indexer daemon
-- `cmd/palomar`: search indexer and query servcie (OpenSearch)
+- `cmd/palomar`: search indexer and query service (OpenSearch)
 - `cmd/gosky`: client CLI for talking to a PDS
 - `cmd/lexgen`: codegen tool for lexicons (Lexicon JSON to Go package)
 - `cmd/laputa`: PDS daemon
